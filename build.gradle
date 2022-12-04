@@ -1,0 +1,66 @@
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '2.7.6'
+	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'application'
+}
+
+group = 'com.config'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+//region 1. application.properties file read
+def Properties properties = new Properties()
+Reader reader = new FileReader(project.rootProject.file('src/main/resources/application.properties'))
+properties.load(reader)
+
+def names = properties.propertyNames()
+names.each {
+	println "key :" + it + " / value :" + properties.getProperty(it)
+}
+//endregion
+
+//2) get app name from sh -Penv
+if(project.hasProperty('env')) {
+	println "app-naming :" + project.property('env')
+	ext.cmdargs = project.property('env')
+}else {
+	ext.cmdargs = "not load"
+}
+
+ext.javaMainClass = "com.config.demo.DemoApplication"
+
+application {
+	mainClassName = javaMainClass
+}
+
+task cmdLineJavaExec(type: JavaExec) {
+	group = "Execution"
+	description = "Run the main class with JavaExecTask"
+	classpath = sourceSets.main.runtimeClasspath
+	main = javaMainClass
+	args cmdargs
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.1'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.1'
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}

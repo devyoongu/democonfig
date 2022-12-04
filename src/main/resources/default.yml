@@ -1,0 +1,15 @@
+hana:
+  url: 'http://hana.com'
+  port: 2020
+
+guro:
+  url : 'http://guro.com'
+  port: 2020
+
+hdcard:
+  url : 'http://hdcard.com'
+  port: 2020
+
+chubb:
+  url : 'http://chubb.com'
+  port: 2020
