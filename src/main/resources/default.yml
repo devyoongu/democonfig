@@ -1,3 +1,5 @@
+appNames: hana,guro,hdcard,chubb
+
 hana:
   url: 'http://hana.com'
   port: 2020
@@ -13,3 +15,9 @@ hdcard:
 chubb:
   url : 'http://chubb.com'
   port: 2020
+
+logging:
+  level:
+    com:
+      posicube:
+        robi: DEBUG

@@ -9,10 +9,10 @@ public class DemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
-
-		BuildConfig buildConfig = new BuildConfig(args[0]);
-		buildConfig.generateConfig();
-
+		if (args.length > 0) {
+			BuildConfig buildConfig = new BuildConfig(args[0]);
+			buildConfig.generateConfig();
+		}
 	}
 
 }

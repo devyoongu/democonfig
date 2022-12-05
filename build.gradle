@@ -20,14 +20,14 @@ repositories {
 }
 
 //region 1. application.properties file read
-def Properties properties = new Properties()
-Reader reader = new FileReader(project.rootProject.file('src/main/resources/application.properties'))
-properties.load(reader)
-
-def names = properties.propertyNames()
-names.each {
-	println "key :" + it + " / value :" + properties.getProperty(it)
-}
+//def Properties properties = new Properties()
+//Reader reader = new FileReader(project.rootProject.file('src/main/resources/application.properties'))
+//properties.load(reader)
+//
+//def names = properties.propertyNames()
+//names.each {
+//	println "key :" + it + " / value :" + properties.getProperty(it)
+//}
 //endregion
 
 //2) get app name from sh -Penv
@@ -59,6 +59,7 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.1'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.14.1'
+	annotationProcessor "org.springframework.boot:spring-boot-configuration-processor"
 }
 
 tasks.named('test') {
