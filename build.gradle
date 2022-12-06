@@ -34,8 +34,9 @@ repositories {
 if(project.hasProperty('env')) {
 	println "app-naming :" + project.property('env')
 	ext.cmdargs = project.property('env')
-}else {
-	ext.cmdargs = "not load"
+}
+else {
+	ext.cmdargs = ""
 }
 
 ext.javaMainClass = "com.config.demo.DemoApplication"

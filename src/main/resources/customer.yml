@@ -1,9 +1,0 @@
-appNames: hana,guro,hdcard,chubb
-logging:
-  level:
-    com:
-      posicube:
-        robi: DEBUG
-hana:
-  port: 2020
-  url: http://hana.com

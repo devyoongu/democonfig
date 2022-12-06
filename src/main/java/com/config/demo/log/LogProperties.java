@@ -3,9 +3,11 @@ package com.config.demo.log;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,6 +19,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogProperties {
 
-    @Value("${logging.level.com.posicube.robi}")
+    @Value("${logging.level.com.posicube.robi:info}")
     private String robiLogLevel;
+
+    @Value("${appName:default}")
+    private String appName;
 }
