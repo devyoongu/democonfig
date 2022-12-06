@@ -1,0 +1,8 @@
+spring:
+  application:
+    name:
+  datasource:
+  config:
+    import:
+#      - classpath:common.yml
+      - classpath:customer.yml

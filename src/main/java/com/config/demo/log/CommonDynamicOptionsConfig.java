@@ -15,7 +15,7 @@ public class CommonDynamicOptionsConfig {
 
     @PostConstruct
     private void init() {
-        System.out.println("commonDynamicOptions = " + logProperties.getRobiLogLevel().toString());
+        System.out.println("commonDynamicOptions = " + logProperties.getRobiLogLevel());
         System.out.println("logProperties.getAppName() = " + logProperties.getAppName());
         commonDynamicOptions.setLogLevel(logProperties.getRobiLogLevel());
     }

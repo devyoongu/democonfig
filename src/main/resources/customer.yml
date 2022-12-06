@@ -1,0 +1,14 @@
+appName: hana
+logging:
+  level:
+    com:
+      posicube:
+        robi: ERROR
+guro:
+  port: 20201
+  url: http://guro.com
+  key: 705921ea17174b748d82cceee0d57233
+hana:
+  port: 20201
+  url: http://hana.com
+  key: 705921ea17174b748d82cceee0d57233

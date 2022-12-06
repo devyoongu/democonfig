@@ -1,23 +1,25 @@
-appNames: hana,guro,hdcard,chubb
-
 hana:
   url: 'http://hana.com'
-  port: 2020
+  port: 20201
+  key: 705921ea17174b748d82cceee0d57233
 
 guro:
   url : 'http://guro.com'
-  port: 2020
+  port: 20201
+  key: 705921ea17174b748d82cceee0d57233
 
-hdcard:
-  url : 'http://hdcard.com'
-  port: 2020
-
-chubb:
-  url : 'http://chubb.com'
-  port: 2020
-
+#hdcard:
+#  url : 'http://hdcard.com'
+#  port: 20201
+#  key: 705921ea17174b748d82cceee0d57233
+#
+#chubb:
+#  url : 'http://chubb.com'
+#  port: 20201
+#  key: 705921ea17174b748d82cceee0d57233
+#
 logging:
   level:
     com:
       posicube:
-        robi: DEBUG
+        robi: ERROR

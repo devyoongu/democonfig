@@ -1,26 +1,31 @@
 package com.config.demo.config;
 
+import com.config.demo.dto.CommonDto;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import lombok.RequiredArgsConstructor;
-//import org.springframework.beans.factory.annotation.Value;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.constructor.Constructor;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.*;
-
 @RequiredArgsConstructor
 public class BuildConfig {
 
     private final String appName;
 
     public void generateConfig() {
-//            System.out.println("appName = " + appName);
-        Map<String, Object> map = createMap();
+        /*Map<String, Object> fileMap = fileRead("customer.yml");
+        if (fileMap.get("appName") != null) {
+            return;
+        }*/
+
+        //1) yml -> Map convert
+        Map<String, Object> ymlMap = fileRead("dld.yml");
+
+        //2)
+        Map<String, Object> map = createMap(ymlMap);
 
         //yml 생성 옵션
         DumperOptions options = new DumperOptions();
@@ -28,43 +33,42 @@ public class BuildConfig {
         options.setPrettyFlow(true);
 
         Yaml yaml = new Yaml(options);
-
         try {
-            //todo : 이후 customer.yml로 변경
-            PrintWriter writer = new PrintWriter(new File("./src/main/resources/application.yml"));
+            PrintWriter writer = new PrintWriter(new File("./src/main/resources/customer.yml"));
             yaml.dump(map, writer);
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private Map<String, Object> createMap() {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        File file = new File(classLoader.getResource("dld.yml").getFile()); //DLD에서 넘어올 값
-        ObjectMapper om = new ObjectMapper(new YAMLFactory());
-
+    private Map<String, Object> createMap(Map<String, Object> ymlMap) {
         Map<String, Object> map = new HashMap<>();
 
+        for (String key : ymlMap.keySet()) {
+            map.put(key, getMapValue(ymlMap, key));
+            map.put("appName", key);
+        }
+
+        convertModel();
+
+        return map;
+    }
+
+    /**
+     * yml -> DTO
+     */
+    private void convertModel() {
+        InputStream inputStream = null;
         try {
-            Map<String, Object> fileMap = om.readValue(file, HashMap.class);
-
-            List<String> appNames = Arrays.asList(String.valueOf(fileMap.get("appNames")).split(","));
-
-            for (String key : fileMap.keySet()) {
-                if (key.equals(this.appName) && !"".equals(this.appName)) { // 특정 기관정보만 get
-                    map.put(key, getMapValue(fileMap, key));
-                    map.put("appName", key);
-                }
-                if (!appNames.contains(key)) { // 기관정보 이외 공통정보 get
-                    map.put(key, getMapValue(fileMap, key));
-                }
-            }
-
-        } catch (IOException e) {
+            inputStream = new FileInputStream(new File("./src/main/resources/customer.yml"));
+        } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
 
-        return map;
+        Yaml yaml = new Yaml(new Constructor(CommonDto.class));
+        CommonDto data = yaml.load(inputStream);
+
+        System.out.println("data = " + data);
     }
 
     private Object getMapValue(Map<String, Object> fileMap, String key) {
@@ -84,5 +88,19 @@ public class BuildConfig {
         return fileMap.get(key);
     }
 
+    private Map<String, Object> fileRead(String fileName) {
+        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+        File file = new File(classLoader.getResource(fileName).getFile());
+        ObjectMapper om = new ObjectMapper(new YAMLFactory());
+        Map<String, Object> fileMap = new HashMap<>();
+
+        try {
+            fileMap = om.readValue(file, HashMap.class);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return fileMap;
+    }
 
 }

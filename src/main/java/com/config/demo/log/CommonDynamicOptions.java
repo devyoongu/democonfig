@@ -32,7 +32,6 @@ public class CommonDynamicOptions {
     }
 
     public void setLogLevel(String propertiesLogLevelString) {
-        System.out.println("propertiesLogLevelString = " + propertiesLogLevelString);
         this.logLevel = getLogLevelFromString(propertiesLogLevelString);
     }
 
