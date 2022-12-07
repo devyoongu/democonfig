@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.Yaml;
 import org.yaml.snakeyaml.constructor.Constructor;
+import org.yaml.snakeyaml.representer.Representer;
 
 import java.io.*;
 import java.util.*;
@@ -15,24 +16,25 @@ public class BuildConfig {
 
     private final String appName;
 
-    public void generateConfig() {
+    public void generateConfigYml() {
         /*Map<String, Object> fileMap = fileRead("customer.yml");
         if (fileMap.get("appName") != null) {
             return;
         }*/
 
-        //1) yml -> Map convert
+        //1) 외부 dld yml -> Map convert
         Map<String, Object> ymlMap = fileRead("dld.yml");
 
-        //2)
+        //2) yml 변환전 Map 생성
         Map<String, Object> map = createMap(ymlMap);
 
-        //yml 생성 옵션
+        //3) 기관 customer yml 생성
         DumperOptions options = new DumperOptions();
         options.setDefaultFlowStyle(DumperOptions.FlowStyle.BLOCK);
         options.setPrettyFlow(true);
 
         Yaml yaml = new Yaml(options);
+
         try {
             PrintWriter writer = new PrintWriter(new File("./src/main/resources/customer.yml"));
             yaml.dump(map, writer);
@@ -49,26 +51,7 @@ public class BuildConfig {
             map.put("appName", key);
         }
 
-        convertModel();
-
         return map;
-    }
-
-    /**
-     * yml -> DTO
-     */
-    private void convertModel() {
-        InputStream inputStream = null;
-        try {
-            inputStream = new FileInputStream(new File("./src/main/resources/customer.yml"));
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        Yaml yaml = new Yaml(new Constructor(CommonDto.class));
-        CommonDto data = yaml.load(inputStream);
-
-        System.out.println("data = " + data);
     }
 
     private Object getMapValue(Map<String, Object> fileMap, String key) {

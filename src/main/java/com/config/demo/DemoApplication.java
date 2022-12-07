@@ -1,6 +1,7 @@
 package com.config.demo;
 
 import com.config.demo.config.BuildConfig;
+import com.config.demo.config.BuildConfigDto;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -16,7 +17,10 @@ public class DemoApplication {
 			buildConfig.generateConfig();
 		}*/
 
-		BuildConfig buildConfig = new BuildConfig("hana");
-		buildConfig.generateConfig();
+		/*BuildConfig buildConfig = new BuildConfig("hana");
+		buildConfig.generateConfigYml();*/
+
+		BuildConfigDto BuildConfigDto = new BuildConfigDto("hana");
+		BuildConfigDto.generateConfigYml();
 	}
 }

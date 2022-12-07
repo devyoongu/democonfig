@@ -1,10 +1,8 @@
 package com.config.demo.dto;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
@@ -18,4 +16,6 @@ public class CommonDto {
     public ConnectInfo hana;
     public ConnectInfo guro;
     public LinkedHashMap logging;
+
+    //todo :  암/복호화, 그밖에 yml 조합룰 추가
 }
