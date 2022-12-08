@@ -46,6 +46,8 @@ public class BuildConfig {
     private Map<String, Object> createMap(Map<String, Object> ymlMap) {
         Map<String, Object> map = new HashMap<>();
 
+        List<String> appNames = Arrays.asList(String.valueOf(ymlMap.get("appNames")).split(","));
+
         for (String key : ymlMap.keySet()) {
             map.put(key, getMapValue(ymlMap, key));
             map.put("appName", key);

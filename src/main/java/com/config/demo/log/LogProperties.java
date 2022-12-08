@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class LogProperties {
 
-    @Value("${logging.level.com.posicube.robi:info}")
+    @Value("${logging.level.com.posicube.robi:default}")
     private String robiLogLevel;
 
     @Value("${appName:default}")
