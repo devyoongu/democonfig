@@ -22,4 +22,4 @@ logging:
   level:
     com:
       posicube:
-        robi: ERROR
+        robi: warn

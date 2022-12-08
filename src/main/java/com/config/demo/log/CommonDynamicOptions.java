@@ -15,6 +15,7 @@ import org.springframework.boot.logging.LogLevel;
 public class CommonDynamicOptions {
 
     private LogLevel logLevel;
+    private String appName;
 
     private LogLevel getLogLevelFromString(String propertiesLogLevel) {
         switch (propertiesLogLevel) {
@@ -35,12 +36,15 @@ public class CommonDynamicOptions {
         this.logLevel = getLogLevelFromString(propertiesLogLevelString);
     }
 
+    public void setAppName(String appName) {
+        this.appName = appName;
+    }
+
     public static CommonDynamicOptions getInstance() {
         return Holder.SINGLETON_LAZY_HOLDER;
     }
 
     private static class Holder {
-
         private static final CommonDynamicOptions SINGLETON_LAZY_HOLDER = new CommonDynamicOptions();
     }
 }

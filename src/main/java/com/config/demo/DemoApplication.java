@@ -11,16 +11,12 @@ public class DemoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
 
-		/*if (args.length > 0) {
-			System.out.println("args = " + args[0]);
-			BuildConfig buildConfig = new BuildConfig(args[0]);
-			buildConfig.generateConfig();
-		}*/
+		if (args.length > 0) {
+			BuildConfigDto buildConfigDto = new BuildConfigDto(args[0]);
+			buildConfigDto.generateConfigYml();
+		}
 
-		/*BuildConfig buildConfig = new BuildConfig("hana");
-		buildConfig.generateConfigYml();*/
-
-		BuildConfigDto BuildConfigDto = new BuildConfigDto("hana");
-		BuildConfigDto.generateConfigYml();
+//		BuildConfigDto BuildConfigDto = new BuildConfigDto("hana");
+//		BuildConfigDto.generateConfigYml();
 	}
 }

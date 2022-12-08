@@ -1,6 +1,7 @@
 package com.config.demo.log;
 
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.logging.LogLevel;
 import org.springframework.http.ResponseEntity;
@@ -14,111 +15,112 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Slf4j
 @Getter
+//@RequiredArgsConstructor
 public class PosiLogger {
 
     public void trace(String msg) {
         if (!isAvailable(LogLevel.TRACE)) {
             return;
         }
-        log.trace(msg);
+        log.trace(getMsg(msg));
     }
 
     public void trace(String msg, Throwable t) {
         if (!isAvailable(LogLevel.TRACE)) {
             return;
         }
-        log.trace(msg, t);
+        log.trace(getMsg(msg), t);
     }
 
     public static void trace(String format, Object... args) {
         if (!isAvailable(LogLevel.TRACE)) {
             return;
         }
-        log.trace(format, args);
+        log.trace(getMsg(format), args);
     }
 
     public static void debug(String msg) {
         if (!isAvailable(LogLevel.DEBUG)) {
             return;
         }
-        log.debug(msg);
+        log.debug(getMsg(msg));
     }
 
     public static void debug(String msg, Throwable t) {
         if (!isAvailable(LogLevel.DEBUG)) {
             return;
         }
-        log.debug(msg, t);
+        log.debug(getMsg(msg), t);
     }
 
     public static void debug(String format, Object... args) {
         if (!isAvailable(LogLevel.DEBUG)) {
             return;
         }
-        log.debug(format, args);
+        log.debug(getMsg(format), args);
     }
 
     public static void info(String msg) {
         if (!isAvailable(LogLevel.INFO)) {
             return;
         }
-        log.info(msg);
+        log.info(getMsg(msg));
     }
 
     public static void info(String msg, Throwable t) {
         if (!isAvailable(LogLevel.INFO)) {
             return;
         }
-        log.info(msg, t);
+        log.info(getMsg(msg), t);
     }
 
     public static void info(String format, Object... args) {
         if (!isAvailable(LogLevel.INFO)) {
             return;
         }
-        log.info(format, args);
+        log.info(getMsg(format), args);
     }
 
     public static void warn(String msg) {
         if (!isAvailable(LogLevel.WARN)) {
             return;
         }
-        log.warn(msg);
+        log.warn(getMsg(msg));
     }
 
     public static void warn(String msg, Throwable t) {
         if (!isAvailable(LogLevel.WARN)) {
             return;
         }
-        log.warn(msg, t);
+        log.warn(getMsg(msg), t);
     }
 
     public static void warn(String format, Object... args) {
         if (!isAvailable(LogLevel.WARN)) {
             return;
         }
-        log.warn(format, args);
+        log.warn(getMsg(format), args);
     }
 
     public static void error(String msg) {
         if (!isAvailable(LogLevel.ERROR)) {
             return;
         }
-        log.error(msg);
+        log.error(getMsg(msg));
     }
 
     public static void error(String msg, Throwable t) {
         if (!isAvailable(LogLevel.ERROR)) {
             return;
         }
-        log.error(msg, t);
+        log.error(getMsg(msg), t);
     }
 
     public static void error(String format, Object... args) {
         if (!isAvailable(LogLevel.ERROR)) {
             return;
         }
-        log.error(format, args);
+        log.error(getMsg(format), args);
     }
 
     /**
@@ -270,5 +272,10 @@ public class PosiLogger {
 
     private static boolean isAvailable(LogLevel logLevel) {
         return logLevel.ordinal() >= CommonDynamicOptionsConfig.commonDynamicOptions.getLogLevel().ordinal();
+    }
+
+    private static String getMsg(String msg) {
+        String appName = CommonDynamicOptionsConfig.commonDynamicOptions.getAppName();
+        return "[" + appName + "]" + msg;
     }
 }
