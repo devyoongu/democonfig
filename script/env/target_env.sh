@@ -11,6 +11,7 @@ RELEASE_TARGET=$1
 
 # check release target
 PASS=false
+
 for rt in ${SUPPORTED_RELEASE_TARGETS[@]};
 do
 #       echo "string compare, rt: $rt, target: $RELEASE_TARGET"
