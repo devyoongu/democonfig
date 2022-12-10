@@ -20,6 +20,7 @@ do
         break
     fi
 done
+
 echo "release target: $RELEASE_TARGET, check: $PASS"
 if ! $PASS; then
     echo "not supported release target: $RELEASE_TARGET"
