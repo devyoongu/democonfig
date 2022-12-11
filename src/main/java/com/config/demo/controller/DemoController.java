@@ -9,14 +9,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class DemoController {
 
-    private final DemoService demoService;
+//    private final DemoService demoService;
 
     @GetMapping("/demo")
     public String getLogLevel() {
 
-        String logLevel = demoService.DemoLog();
+//        String logLevel = demoService.DemoLog();
 
-        return logLevel;
+        return null;
     }
 
 

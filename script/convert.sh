@@ -1,31 +1,34 @@
 #!/bin/bash
 
-targets=("robiLogLevel" "appName" "chubbUrl" "chubbPort")
+variables=("robiLogLevel" "appName" "chubbUrl" "chubbPort")
 
-robiLogLevel=warn
-appName=guro
-chubbUrl=http://chubb.com
+robiLogLevel="warn"
+appName="guro"
+chubbUrl="http://chubb.com"
 chubbPort=20201
 
-target="target.txt"
+target="../src/main/java/com/config/demo/BuildConfig.java"
 
 while read line;
-#arr=()
 do
   if [[ "$line" == *private* ]]; then
     temp=`echo $line | cut -d '{' -f2`
     word=`echo $temp | cut -d '}' -f1`
-#    arr+=(`echo $word`)
-#    echo $arr
-echo $word
+    front=`echo $line | cut -d '=' -f1`
 
-#    for rt in "${targets[@]}"
-#    do
-#      if [ $word == $rt ]; then
-#          echo "$word""$rt"
-#          echo "$word" > $file
-#          break
-#      fi
-#    done
+    for rt in "${variables[@]}"
+    do
+      if [ $word == $rt ]; then
+        re="^[0-9]+$"
+        if [[ ${!word} =~ $re ]]; then
+          echo $front"="${!word}";" >> ${target}
+        else
+          echo $front"="'"'${!word}'"'";" >> ${target}
+        fi
+      fi
+    done
+  else
+    echo $line >> ${target}
   fi
-done < test.txt
+
+done < temp.txt

@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletRequest;
 @Getter
 //@RequiredArgsConstructor
 public class PosiLogger {
-
     public void trace(String msg) {
         if (!isAvailable(LogLevel.TRACE)) {
             return;
