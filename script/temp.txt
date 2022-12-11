@@ -1,7 +1,12 @@
 package com.config.demo;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.beans.factory.annotation.Value;
 
+
+@Getter
+@Setter
 public class BuildConfig {
 
     @Value("${logging.level.com.posicube.robi:default}")

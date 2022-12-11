@@ -1,9 +1,14 @@
 #!/bin/bash
 
-variables=("robiLogLevel" "appName" "chubbUrl" "chubbPort")
+CUR_DIR="$( cd "$( dirname "$0" )" && pwd )"
+source "$CUR_DIR/env/target_env.sh"
 
+echo "read env.."
+echo "RELEASE_TARGET>>"$RELEASE_TARGET
+
+variables=("robiLogLevel" "appName" "chubbUrl" "chubbPort")
 robiLogLevel="warn"
-appName="guro"
+appName=$RELEASE_TARGET
 chubbUrl="http://chubb.com"
 chubbPort=20201
 
