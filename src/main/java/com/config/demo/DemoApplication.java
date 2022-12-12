@@ -1,6 +1,5 @@
 package com.config.demo;
 
-import com.config.demo.config.BuildConfig;
 import com.config.demo.config.BuildConfigDto;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -19,15 +19,25 @@ repositories {
 	mavenCentral()
 }
 
-task startScript(type: Exec) {
-	doFirst {
-		exec {
-			executable "./convert.sh"
-		}
-	}
+
+//task runShell(type: Exec) {
+//	workingDir "$projectDir/script"
+//	commandLine './convert.sh'
+//}
+
+//task runShell(dependsOn:['compileJava']) {
+//	doFirst{
+//		workingDir "$projectDir/script"
+//		commandLine './convert.sh'
+//	}
+//}
+
+task runShell(type: Exec) {
+	workingDir "$projectDir/script"
+	commandLine './convert.sh'
 }
 
-
+compileJava.dependsOn runShell
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
